@@ -1,6 +1,7 @@
 import NextPage from "next";
 import Head from "next/head";
 import Image from "next/future/image";
+import React from "react"; 
 import styles from "../styles/Home.module.css";
 import HeroImg1 from "../assets/hero-illustrations/hero-card-3.svg";
 import HeroImg2 from "../assets/hero-illustrations/bar-container.svg";
@@ -34,10 +35,15 @@ import BlogAvatar2 from "../assets/images/blog-avatar-2.svg";
 import BlogAvatar3 from "../assets/images/blog-avatar-3.svg";
 import ChevronDown from "../assets/icons/chevron-down.svg";
 
+import Fade from 'react-reveal/Fade';
+import Slide from 'react-reveal/Slide';
 import Navbar from "../components/Navbar";
-import SliderSection from "../components/SliderSection";
-const Home: NextPage = () => {
+import SliderSection from "../components/SliderSection"; 
+const Home = () => {
+ 
+  const [isImgLoaded, setIsImgLoaded] = React.useState(true)
   return (
+   
     <div className={styles.container}>
       <Head>
         <title>Boldo - Edgar Allen</title>
@@ -45,9 +51,10 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section className="top_container bg_primary_800">
-        <div className="bg_circle" />
-        <header className="container-child-max-width flex-item flex-item-space">
+
+      <section className="top_container bg_primary_800"  >
+        <div className="overlay_circle" />
+        <header className="container-child-max-width flex-item flex-item-space | header">
           <BoldoCustomLogo
             textColor={"#FFF"}
             logoColor={"rgba(101, 228, 163, 1)"}
@@ -56,16 +63,16 @@ const Home: NextPage = () => {
         </header>
 
         <div className="hero-section even-columns container-child-max-width">
-          <div className="">
+          <div className="top_container_left">
             <p className="clr_neutral_100 fs_heading_lg heading_width_sm | hero-section-text">
-              Save time by building fast with Boldo Template{" "}
+              Save time by building fast with Boldo Template
             </p>
-            <p className="clr_neutral_100 fs_body_sm heading_width_sm">
+            <p className="text_neutral_400 fs_body_sm heading_width_sm">
               Funding handshake buyer business-to-business metrics iPad
               partnership. First mover advantage innovator success deployment
               non-disclosure.
             </p>
-            <div className="flex-item default_margin">
+            <div className="flex-item default_margin | top_container_buttons">
               <a className="bg_accent_200 fs_btn fw_btn_lg | btn-accent">
                 Buy template
               </a>
@@ -84,7 +91,7 @@ const Home: NextPage = () => {
                 <Image src={HeroImg1} className="hero_dots" alt="hero-img" />
                 <Image src={HeroImg4} className="hero_chart" alt="hero-img" />
               </div>
-              <div>
+              <div style={{background:"#0a2640", borderRadius: '15.0305px'}}>
                 <Image src={HeroImg5} alt="hero-img" />
               </div>
             </div>
@@ -99,8 +106,9 @@ const Home: NextPage = () => {
           <Image src={BoldoLogo} alt="hero-img" />
           <Image src={PrestoLogo} alt="hero-img" />
         </div>
-      </section>
-      <section className="container-child-max-width  | services_container">
+      </section> 
+      <Fade bottom>
+      <section className="container-child-max-width  | services_container"   >
         <p className="fs_body_sm text_neutral_800 fw_body">Our Services</p>
         <p className="fs_heading_lg">
           Handshake infographic mass market crowdfunding iteration.
@@ -159,9 +167,10 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
-
+</Fade>
       <section className="even-columns flex-item flex-item-space container-child-max-width | hero-services-container">
-        <div className="hero-services-card">
+     <Fade left>
+     <div className="hero-services-card" >
           <Image src={HomepageImg1} alt="hero-img" />
           <div className="hero-services-card-child">
             <Image src={BarChartBlue} alt="hero-img" />
@@ -169,6 +178,8 @@ const Home: NextPage = () => {
             <p className="text_sm text_primary_800">More income in June</p>
           </div>
         </div>
+       </Fade>
+       <Fade right>
 
         <div>
           <p className="fs_body_md text_primary_800 fw_body default_margin_lg | hero-service-text">
@@ -204,10 +215,11 @@ const Home: NextPage = () => {
           <div className="default_margin_lg" />
           <a className="btn-primary">Start now</a>
         </div>
+        </Fade>
       </section>
 
       <section className="even-columns flex-item flex-item-space container-child-max-width | hero-services-container">
-        <div>
+      <Fade right><div>
           <p className="fs_body_md text_primary_800 fw_body | hero-service-text">
             We connect our customers with the best, and help them keep up-and
             stay open.
@@ -234,8 +246,9 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-
-        <div className="hero-services-card right_service_container">
+        </Fade>
+        <Fade left>
+  <div className="hero-services-card right_service_container">
           <Image src={HomepageImg2} alt="hero-img" />
           <div className="right_service_card flex-item-center flex-item-column">
             <Image src={PieChartIllustration} alt="hero-img" />
@@ -259,13 +272,21 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
+        </Fade>
+      
       </section>
       <div className="default_padding_md" />
       <SliderSection />
 
-      <section className="container-child-max-width default_padding_main | default_section ">
+<Slide bottom>
+ <section className="container-child-max-width default_padding_main | default_section ">
         <div>
-          <Image src={DefaultImg} alt="default-img" />
+   
+            <Image src={DefaultImg} alt="default-img" onLoad={() => {
+              console.log('loaded');
+              setIsImgLoaded(true)
+            }} style={isImgLoaded ? {display: 'inline-block'} : {display: 'none'}} />
+           
         </div>
         <div className="flex-item default_section_container">
           <p className="fs_heading_md fw_body | default_section_text">
@@ -288,7 +309,9 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
-
+</Slide>
+     
+<Slide bottom>
       <section className="container-child-max-width  | services_container">
         <p className="fs_body_sm text_neutral_800 fw_body | blog_heading">
           Our Blog
@@ -302,8 +325,7 @@ const Home: NextPage = () => {
             <div className="mx_height_class">
               <Image
                 src={BlogImg4}
-                alt="hero-img"
-                className="mx_height_class"
+                alt="hero-img" 
               />
             </div>
             <div className="flex-item flex-item-align">
@@ -334,8 +356,7 @@ const Home: NextPage = () => {
             <div className="mx_height_class">
               <Image
                 src={BlogImg3}
-                alt="hero-img"
-                className="mx_height_class"
+                alt="hero-img" 
               />
             </div>
             <div className="flex-item flex-item-align">
@@ -397,10 +418,13 @@ const Home: NextPage = () => {
           Load more
         </a>
       </section>
-      <section>
-        <div className="container default_padding_main">
-           
-          <div className="bg_primary_800 text_neutral_100 flex-item flex-item-center flex-item-column | cta">
+  </Slide>
+  <Fade bottom>
+     <section>
+        <div className="container default_padding_main | cta-wrapper">
+       
+          <div className="bg_primary_800 text_neutral_100 | cta">
+          <div className="overlay_circle_sm" />
             <p className="text_neutral_400 fs_heading_lg fw_body">An enterprise template to ramp up your company website</p>
             <form>
               <input type="text" aria-label="email-address" /> 
@@ -409,24 +433,31 @@ const Home: NextPage = () => {
           </div>
         </div>
       </section>
-      <footer className={styles.footer}>
-        <div className="even-columns container">
-          <div>
-            <a>
-              <div className="logo"></div>
-              <p className="logo_text">Boldo</p>
-            </a>
+  </Fade>
+     
+      <footer className="container default_padding_main | footer">
+        <div className="footer_container">
+          <div className="footer_left">
+         
+         <div className="footer_logo_container">
+         <BoldoCustomLogo
+            textColor={"#0a2640"}
+            logoColor={"#0a2640"}
+          />
+         </div>
+        
 
-            <p>
+            <p className="fw_body fs_body_sm text_neutral_600">
               Social media validation business model canvas graphical user
               interface launch party creative facebook iPad twitter.
             </p>
-            <p>All rights reserved.</p>
+            <p className="rights_reserved">All rights reserved.</p>
           </div>
-
-          <ul>
+          <nav>
+            
+          <ul className="footer_ul">
             <li>
-              <a>Landings</a>
+              <a className="heading">Landings</a>
             </li>
             <li>
               <a>Home</a>
@@ -439,14 +470,14 @@ const Home: NextPage = () => {
             </li>
           </ul>
 
-          <ul>
+          <ul className="footer_ul">
             <li>
-              <a>Company</a>
+              <a className="heading">Company</a>
             </li>
             <li>
               <a>Home</a>
             </li>
-            <li>
+            <li className="flex-item flex-item-space">
               <a>Careers</a> <strong>Hiring!</strong>
             </li>
             <li>
@@ -454,9 +485,9 @@ const Home: NextPage = () => {
             </li>
           </ul>
 
-          <ul>
+          <ul className="footer_ul">
             <li>
-              <a>Resources</a>
+              <a className="heading">Resources</a>
             </li>
             <li>
               <a>Blog</a>
@@ -468,9 +499,10 @@ const Home: NextPage = () => {
               <a>Services</a>
             </li>
           </ul>
+          </nav>
         </div>
       </footer>
-    </div>
+    </div> 
   );
 };
 
