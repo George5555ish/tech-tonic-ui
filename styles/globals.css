@@ -32,9 +32,9 @@
     --fs-400: 0.85rem;
     --fs-500: 1rem;
     --fs-600: 1.2rem;
-    --fs-700: 1.5rem;
-    --fs-800: 1.75rem;
-    --fs-900: 2rem;
+    --fs-700: 1.35rem;
+    --fs-800: 1.5rem;
+    --fs-900: 1.75rem;
   }
 }
 
@@ -850,9 +850,9 @@ font-family: 'Open Sans';
   height: 1293px;
   background: #1C3D5B;
   border-radius: 50%;
-  z-index: -1;
-  top: -100%;
-  right: -50%;
+  z-index: -1; 
+  top: -80%;
+  right: -30%;
 } 
 .overlay_circle_sm{
   position: absolute; 
